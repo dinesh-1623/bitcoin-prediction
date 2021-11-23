@@ -7,19 +7,32 @@ DATA IS TAKEN FROM BITCOIN HISTORICAL
 DATA Contains Timestamp, open , high ,
 low , volume(currency), weighted price,
 change% from 1-07-21 to 18- 10-21
+
 Features
+
 • We decided to make a total of 66 features for each time step based on the last n minutes, where n
 =1,2,5,10,20,40,80.
+
 • H: (High price over last n minutes)/Current price
+
 • • L: (Low Price over last n minutes)/Current price
+
 • • A: (Average Price over last n minutes)/Current price
+
 • • V: Volume of trading in last n minutes in BTC
+
 • • P: Proportion of increases in price every minute over last n minutes
+
 • •AC R: Ratio of price n minutes ago to the current price
+
 • • WAP: (Average price over [t-2n, t-n])/(Average price over [t-n, t])
+
 • • AP: (Average price over [t-2n, t-n])/Current price
+
 • • VR: (Volume n minutes ago)/Current volume 
+
 • DATA CLEANING
+
 • Upon receiving features, we noticed significant outliers in many parts, so we created
 ranges for each component to include at least 99.9% of the data and constrained outliers
 to the ends of the contents.
@@ -76,17 +89,11 @@ backpropagation on each batch. We did this for a total of 30 epochs. Our approac
 terms of evaluation and convergence were the same, but we were instead utilizing a
 more complicated model that would be a better predictor for the data. 
 
+
 • RESULTS
+
 • To evaluate our models, we used the following three metrics:
 • Weighted Average (formula given in previous section)
 • Gains (formula given in previous section)
-• AUC: The area under the curve measuring the true positive rate vs. the false positive rate Gains
-was our primary measure of success, as it was indicative of how much money we would get for our
-trading strategy. The weighted accuracy was our secondary measure, which adjusted the
-classification accuracy based on the Weights that we used in our loss function Here are the results:
-All three of our models had gains that significantly outperformed the average increase per minute in
-bitcoin, suggesting that their usage on the market could result in larger gains than simply buying
-and holding bitcoin. Reducing the number of features and implementing PCA increased our average
-gains by a small, yet nontrivial, amount, while implementing the neural network significantly
-increased our gains. Both models beat out our basic weighted logistic regression, and performed
+• AUC: The area under the curve measuring the true positive rate vs. the false positive rate Gains was our primary measure of success, as it was indicative of how much money we would get for our trading strategy. The weighted accuracy was our secondary measure, which adjusted the classification accuracy based on the Weights that we used in our loss function Here are the results: All three of our models had gains that significantly outperformed the average increase per minute in bitcoin, suggesting that their usage on the market could result in larger gains than simply buying and holding bitcoin. Reducing the number of features and implementing PCA increased our average gains by a small, yet nontrivial, amount, while implementing the neural network significantly increased our gains. Both models beat out our basic weighted logistic regression, and performed
 significantly better than our second baseline based on analysis of price x minutes ago.
