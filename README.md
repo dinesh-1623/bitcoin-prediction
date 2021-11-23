@@ -1,5 +1,7 @@
 # Using Bitcoin Pricing Data to Create a Profitable Algorithmic Trading Strategy
+
 INTRODUCTION
+
 • Bitcoin and other cryptocurrencies have high volatility in their pricing, meaning that prices can fluctuate significantly over a short period.
 • In this project, we created an algorithm that would predict the price of bitcoin in x minutes relative to the current price
 DATA SET
@@ -36,19 +38,29 @@ Features
 • Upon receiving features, we noticed significant outliers in many parts, so we created
 ranges for each component to include at least 99.9% of the data and constrained outliers
 to the ends of the contents.
+
 • Also, we need to parse dates by using pandas to_datetime function
+
 • Our output variable was then the predicted price ratio x minutes from the current
 timestep, where x =5,10,20.
+
 • SPLITTING OF DATA
+
 • We divided the data into train validation test set in ratio 60-20-20. As the data is
 Timeseries it is necessary to keep similar dates together without randomizing to make
 result generalizable. 
+
 • Basic Approach is:
+
 • Classification: First to classify whether the price will increase or decrease.
+
 • Regression: Then , if it is increasing ,by how much value it increased. Similarly If it is
 decreasing then by how much value.
+
 • Model Implementation
+
 • Weighted Logistic Regression
+
 • Using a weighted logistic regression model based on the sign of the price change, our
 loss function would be accurately correlated to the gains we were making with our strategy
 of either investing at each time step or doing nothing. We predicted the sign of the price
@@ -56,13 +68,16 @@ change by applying the indicator function on outputs and using the absolute valu
 outputs as the individual weights. This way, the loss function that we are minimizing is
 calculated as below, and our logistic regression aims to minimize loss, which correlates to
 us maximizing our gains: 
+
 • The weighted accuracy is a weighted
 measurement to judge the accuracy of
 our algorithm in proportion to the gains
 that we’re receiving. The gains
 correspond to the average price ratio
 increase we get each time step.
+
 • PCA AND FEATURE SELECTION
+
 • We decided to run PCA to check the principal components and their corresponding
 values of our feature matrix to evaluate which features had the largest impact on the
 variance of our data. First, we examined the correlation between variables by
@@ -76,7 +91,9 @@ optimized the number of principal components to use in our data transformation b
 creating a model and maximizing the gains on our dev set. We consistently saw a jump
 in gains from 8 to 9 components, but found that using about 20 components optimized
 our gains 
+
 • . Neural network
+
 • we create a neural network because it is suspected that the predictive model based
 on our features wasn’t strictly linear. We constructed a single hidden layer neural
 network with a rectifier (ReLU) activation function for the hidden layers and sigmoid
